@@ -1,5 +1,7 @@
 module JuliaSimulation
+include("./knapsack_ga/pipeline.jl")
 
-# Write your package code here.
-
+function knapsack_ga()
+    knapsack_ga_process()
+end
 end
