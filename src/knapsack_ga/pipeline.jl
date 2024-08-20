@@ -6,7 +6,7 @@ include("gene.jl")
 
 function knapsack_ga_process()
     # initiation
-    params::Parameters = Parameters()
+    params::KnapsackGAParameters = KnapsackGAParameters()
     # MersenneTwister(params.seed_number)
     gene::Gene = build_param(params)
     best_gene_id::Int = -1

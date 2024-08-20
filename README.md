@@ -59,6 +59,7 @@ JuliaSimulation.function()
 | スクリプト | 内容 | コード |
 | --- | --- | --- |
 | `JuliaSimulation.knapsack_ga()` | GAアルゴリズムによるナップサック問題の最適化 | [src/knapsack_ga/](./src/knapsack_ga/) |
+| `JuliaSimulation.double_pendulum()` | 二重振り子シミュレーション | [src/double_pendulum/](./src/double_pendulum/) |
 
 # Refarence
 - [Juliaではじめる数値計算入門](https://www.amazon.co.jp/Julia%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97%E5%85%A5%E9%96%80-%E6%B0%B8%E4%BA%95-%E4%BD%91%E7%B4%80/dp/4297141280)

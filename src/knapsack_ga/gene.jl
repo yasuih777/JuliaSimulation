@@ -6,7 +6,7 @@ mutable struct Gene
     scores::Array{Int, 1}
 end
 
-function build_param(params::Parameters)
+function build_param(params::KnapsackGAParameters)
     return Gene(
         params.parent_size - params.children_size,
         Int.(Random.bitrand((params.parent_size, params.item_size))),
@@ -15,7 +15,7 @@ function build_param(params::Parameters)
     )
 end
 
-function evaluation!(params::Parameters, gene::Gene)
+function evaluation!(params::KnapsackGAParameters, gene::Gene)
     costs::Matrix{Int} = sum(gene.parents' .* params.knapsack["cost"], dims=1)
     values::Matrix{Int} = sum(gene.parents' .* params.knapsack["value"], dims=1)
 
@@ -30,7 +30,7 @@ function evaluation!(params::Parameters, gene::Gene)
     return best_gene_id, costs[best_gene_id], values[best_gene_id]
 end
 
-function tournament_selection!(params::Parameters, gene::Gene)
+function tournament_selection!(params::KnapsackGAParameters, gene::Gene)
     block::Int = div(params.parent_size, params.children_size)
     for idx in 1:block
         idx_max::Int = argmax(gene.scores[(idx - 1) * block + 1: idx * block])
@@ -38,7 +38,7 @@ function tournament_selection!(params::Parameters, gene::Gene)
     end
 end
 
-function uniform_crossbreeding!(params::Parameters, gene::Gene)
+function uniform_crossbreeding!(params::KnapsackGAParameters, gene::Gene)
     gene_code::Int = -1
     parent_idx::Matrix{Int} = sample(1:params.children_size, (gene.keep_idx, 2))
 
@@ -54,7 +54,7 @@ function uniform_crossbreeding!(params::Parameters, gene::Gene)
     end
 end
 
-function mutation!(params::Parameters, gene::Gene)
+function mutation!(params::KnapsackGAParameters, gene::Gene)
     for p_idx in 1:gene.keep_idx
         for i_idx in 1:params.item_size
             if rand() <= params.mutation_prob
@@ -64,7 +64,7 @@ function mutation!(params::Parameters, gene::Gene)
     end
 end
 
-function insert_children!(params::Parameters, gene::Gene)
+function insert_children!(params::KnapsackGAParameters, gene::Gene)
     gene.parents[gene.keep_idx + 1:params.parent_size, :] = gene.childerens
     gene.parents = gene.parents[shuffle(1:end), :]
 end
