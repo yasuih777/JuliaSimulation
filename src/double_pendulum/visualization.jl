@@ -9,17 +9,23 @@ function create_pendulum_gif(points::PendulumPoints, params::DoublePendulumParam
 
     locus_x::Vector{Float64} = []
     locus_y::Vector{Float64} = []
+    locus_t::Vector{Float64} = []
     all_locus_x::Vector{Float64} = []
     all_locus_y::Vector{Float64} = []
+    all_locus_t::Vector{Float64} = []
 
     anim = @animate for idx in 1:length(times)
         push!(locus_x, pendulum_2[idx][1])
         push!(locus_y, pendulum_2[idx][2])
+        push!(locus_t, times[idx])
         push!(all_locus_x, pendulum_2[idx][1])
         push!(all_locus_y, pendulum_2[idx][2])
+        push!(all_locus_t, times[idx])
+
         if length(locus_x) > params.locus_max / params.t_delta
            popfirst!(locus_x) 
            popfirst!(locus_y) 
+           popfirst!(locus_t) 
         end
 
         dinamics = plot(
@@ -37,10 +43,11 @@ function create_pendulum_gif(points::PendulumPoints, params::DoublePendulumParam
                 dinamics,
                 locus_x,
                 locus_y,
+                linez=locus_t,
                 lw = 5,
-                lc = "red",
-                la = range(0, 1, length=length(locus_x)),
+                c = :binary,
                 legend = false,
+                colorbar=false,
             )
         end
 
@@ -48,9 +55,10 @@ function create_pendulum_gif(points::PendulumPoints, params::DoublePendulumParam
             title = "Pendulum locus",
             all_locus_x,
             all_locus_y,
+            linez=all_locus_t,
             lw = 5,
-            lc = "red",
-            la = 0.6,
+            c = :jet,
+            la = 0.5,
             legend = false,
         )
 
