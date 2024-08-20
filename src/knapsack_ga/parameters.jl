@@ -1,4 +1,4 @@
-Base.@kwdef struct Parameters
+Base.@kwdef struct KnapsackGAParameters
     seed_number::Union{Int, Nothing} = nothing
 
     generation_iter::Int = 50
