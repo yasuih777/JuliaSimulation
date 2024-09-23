@@ -56,10 +56,9 @@ end
 
 function mutation!(params::KnapsackGAParameters, gene::Gene)
     for p_idx in 1:gene.keep_idx
-        for i_idx in 1:params.item_size
-            if rand() <= params.mutation_prob
-                gene.parents[p_idx, i_idx] = div(gene.parents[p_idx, i_idx] + 1, 2)
-            end
+        if rand() <= params.mutation_prob
+            mutation_num = rand(1:params.item_size)
+            gene.parents[p_idx, mutation_num] = div(gene.parents[p_idx, mutation_num] + 1, 2)
         end
     end
 end
